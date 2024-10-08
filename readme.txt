@@ -1,6 +1,6 @@
 === Brand Standards ===
-Contributors:      The WordPress Contributors
-Tags:              block
+Contributors:      Byron Lawlis
+Tags:              cpt, page, block
 Tested up to:      6.6
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
