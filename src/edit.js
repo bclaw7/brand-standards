@@ -37,13 +37,13 @@ export default function Edit({ attributes, setAttributes }) {
 			<RichText
 				tagName="h2"
 				value={sectionTitle}
-				onChange={(sectionTitle) => setAttributes({ sectionTitle })}
+				onChange={(newSectionTitle) => setAttributes({ sectionTitle: newSectionTitle })}
 				placeholder={__('Section Title', 'brand-standards')}
 			/>
 			<RichText
 				tagName="div"
 				value={content}
-				onChange={(content) => setAttributes({ content })}
+				onChange={(newContent) => setAttributes({ content: newContent })}
 				placeholder={__('Add your brand guide content here', 'brand-standards')}
 			/>
 		</div>

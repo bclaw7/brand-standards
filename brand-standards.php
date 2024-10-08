@@ -29,6 +29,8 @@ function create_block_brand_standards_block_init() {
 }
 add_action( 'init', 'create_block_brand_standards_block_init' );
 
+require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+
 function brand_standards_register_post_type() {
     $args = array(
         'public'    => true,

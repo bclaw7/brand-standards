@@ -64,15 +64,15 @@ function Edit({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
       tagName: "h2",
       value: sectionTitle,
-      onChange: sectionTitle => setAttributes({
-        sectionTitle
+      onChange: newSectionTitle => setAttributes({
+        sectionTitle: newSectionTitle
       }),
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Section Title', 'brand-standards')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
       tagName: "div",
       value: content,
-      onChange: content => setAttributes({
-        content
+      onChange: newContent => setAttributes({
+        content: newContent
       }),
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add your brand guide content here', 'brand-standards')
     })]
