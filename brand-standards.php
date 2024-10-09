@@ -36,7 +36,7 @@ function brand_standards_register_post_type() {
         'public'    => true,
         'label'     => 'Brand Standards',
         'menu_icon' => 'dashicons-book-alt',
-        'supports'  => array( 'title', 'editor', 'custom-fields', 'revisions' ),
+        'supports'  => array( 'title', 'editor', 'custom-fields', 'revisions', 'thumbnail' ),
         'show_in_rest' => true,
     );
     register_post_type( 'brand_standard', $args );
