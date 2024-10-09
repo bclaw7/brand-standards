@@ -43,10 +43,10 @@ function brand_standards_register_post_type() {
 }
 add_action( 'init', 'brand_standards_register_post_type' );
 
-function brand_standards_enqueue_scripts() {
-    wp_enqueue_style( 'brand-standards-style', plugin_dir_url( __FILE__ ) . 'style.css' );
+function brand_standards_enqueue_styles() {
+    wp_enqueue_style( 'brand-standards-style', plugin_dir_url( __FILE__ ) . 'css/brand-standards.css' );
 }
-add_action( 'wp_enqueue_scripts', 'brand_standards_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'brand_standards_enqueue_styles' );
 
 function brand_standards_custom_template( $template ) {
     if ( is_singular( 'brand_standard' ) ) {
