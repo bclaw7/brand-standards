@@ -16,16 +16,18 @@
 
 <div class="brand-standard-container">
     <div class="sidebar">
-        <?php
-        $custom_logo_id = get_theme_mod('custom_logo');
-        $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-        $site_title = get_bloginfo('name');
-        if (has_custom_logo()) {
-            echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="sidebar-logo">';
-        } else {
-            echo '<h1 class="sidebar-title">' . $site_title . '</h1>';
-        }
-        ?>
+        <div class="sidebar-logo">
+            <?php
+            $custom_logo_id = get_theme_mod('custom_logo');
+            $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+            $site_title = get_bloginfo('name');
+            if (has_custom_logo()) {
+                echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="sidebar-logo">';
+            } else {
+                echo '<h1 class="sidebar-title">' . $site_title . '</h1>';
+            }
+            ?>
+        </div>
         <nav class="sidebar-nav">
             <?php
             $args = array(
@@ -42,22 +44,25 @@
                 wp_reset_postdata();
             endif;
             ?>
-        </nav>
+        </nav>      
     </div>
     
     <div class="content-area">
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
             <div class="cover-block">
-                <h1><?php the_title(); ?></h1>
+                <?php if (has_post_thumbnail()) : ?>
+                    <?php $featured_img_url = get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>
+                    <div class="featured-image" style="background-image: url('<?php echo esc_url($featured_img_url); ?>');">
+                        <div class="gradient-overlay"></div>
+                        <h1><?php the_title(); ?></h1>
+                    </div>
+                <?php else: ?>
+                    <h1><?php the_title(); ?></h1>
+                <?php endif; ?>
             </div>
             
-            <div class="content-columns">
-                <div class="left-column">
-                    <h2>Section Title</h2>
-                </div>
-                <div class="right-column">
-                    <?php the_content(); ?>
-                </div>
+            <div class="brand-content">              
+                <?php the_content(); ?>               
             </div>
             
             <?php
