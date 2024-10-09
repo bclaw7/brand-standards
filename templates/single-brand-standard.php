@@ -33,7 +33,7 @@
             $args = array(
                 'post_type' => 'brand_standard',
                 'posts_per_page' => -1,
-                'orderby' => 'title',
+                'orderby' => 'menu_order',
                 'order' => 'ASC'
             );
             $brand_standards = new WP_Query($args);
