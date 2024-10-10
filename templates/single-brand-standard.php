@@ -19,6 +19,7 @@ require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.p
 
 <div class="brand-standard-container">
     <div class="sidebar">
+        <div class="sidebar-sticky">
         <div class="sidebar-logo-container">
             <?php
             $custom_logo_id = get_theme_mod('custom_logo');
@@ -49,7 +50,8 @@ require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.p
                 wp_reset_postdata();
             endif;
             ?>
-        </nav>      
+        </nav>
+        </div>
     </div>
     
     <div class="content-area">
