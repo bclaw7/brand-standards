@@ -102,12 +102,12 @@ function brand_standards_create_pages() {
 
         if ( ! $existing_page ) {
             $page_content = '<!-- wp:paragraph -->
-<p>' . $page_description . '</p>
-<!-- /wp:paragraph -->
+			<p>' . $page_description . '</p>
+			<!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>Please edit this page to add your specific brand guidelines.</p>
-<!-- /wp:paragraph -->';
+			<!-- wp:paragraph -->
+			<p>Please edit this page to add your specific brand guidelines.</p>
+			<!-- /wp:paragraph -->';
 
             $page_data = array(
                 'post_title'    => $page_title,
@@ -135,7 +135,9 @@ function brand_standards_custom_template( $template ) {
     return $template;
 }
 add_filter( 'single_template', 'brand_standards_custom_template' );
+
 require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+
 function brand_standards_activate() {
     brand_standards_register_post_type();
     brand_standards_create_pages();
