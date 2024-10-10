@@ -3,7 +3,10 @@
  * Template Name: Brand Standard Template
  * Template Post Type: brand_standard
  */
+
+require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.php';
 ?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -67,14 +70,8 @@
                 <?php the_content(); ?>               
             </div>
             
-            <?php
-            the_post_navigation(
-                array(
-                    'prev_text' => '&larr; %title',
-                    'next_text' => '%title &rarr;',
-                )
-            );
-            ?>
+            <?php custom_brand_standard_navigation(); ?>
+            
         <?php endwhile; endif; ?>
     </div>
 </div>

@@ -105,3 +105,18 @@
     margin: 0;
     z-index: 2;
 }
+
+.custom-navigation {
+    width: 80%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-navigation a {
+    text-decoration: none;
+    color: var(--wp--preset--color--primary);
+}
