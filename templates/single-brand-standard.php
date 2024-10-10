@@ -16,7 +16,7 @@
 
 <div class="brand-standard-container">
     <div class="sidebar">
-        <div class="sidebar-logo">
+        <div class="sidebar-logo-container">
             <?php
             $custom_logo_id = get_theme_mod('custom_logo');
             $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
@@ -39,7 +39,9 @@
             $brand_standards = new WP_Query($args);
             if ($brand_standards->have_posts()) :
                 while ($brand_standards->have_posts()) : $brand_standards->the_post();
-                    echo '<a href="' . get_permalink() . '">' . get_the_title() . '</a>';
+                    $nav_title = get_post_meta(get_the_ID(), '_nav_title', true);
+                    $display_title = !empty($nav_title) ? $nav_title : get_the_title();
+                    echo '<a href="' . get_permalink() . '">' . esc_html($display_title) . '</a>';
                 endwhile;
                 wp_reset_postdata();
             endif;

@@ -29,7 +29,10 @@ function create_block_brand_standards_block_init() {
 }
 add_action( 'init', 'create_block_brand_standards_block_init' );
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+function brand_standards_enqueue_styles() {
+    wp_enqueue_style( 'brand-standards-style', plugin_dir_url( __FILE__ ) . 'css/brand-standards.css' );
+}
+add_action( 'wp_enqueue_scripts', 'brand_standards_enqueue_styles' );
 
 function brand_standards_register_post_type() {
     $args = array(
@@ -43,26 +46,50 @@ function brand_standards_register_post_type() {
 }
 add_action( 'init', 'brand_standards_register_post_type' );
 
-function brand_standards_enqueue_styles() {
-    wp_enqueue_style( 'brand-standards-style', plugin_dir_url( __FILE__ ) . 'css/brand-standards.css' );
+function brand_standards_add_custom_fields() {
+    add_meta_box(
+        'brand_standards_nav_title',
+        'Navigation Title',
+        'brand_standards_nav_title_callback',
+        'brand_standard',
+        'side',
+        'high'
+    );
 }
-add_action( 'wp_enqueue_scripts', 'brand_standards_enqueue_styles' );
+add_action( 'add_meta_boxes', 'brand_standards_add_custom_fields' );
 
-function brand_standards_custom_template( $template ) {
-    if ( is_singular( 'brand_standard' ) ) {
-        $new_template = plugin_dir_path( __FILE__ ) . 'templates/single-brand-standard.php';
-        if ( file_exists( $new_template ) ) {
-            return $new_template;
-        }
-    }
-    return $template;
+function brand_standards_nav_title_callback( $post ) {
+    wp_nonce_field( 'brand_standards_nav_title', 'brand_standards_nav_title_nonce' );
+    $value = get_post_meta( $post->ID, '_nav_title', true );
+    echo '<label for="brand_standards_nav_title_field">Navigation Title</label>';
+    echo '<input type="text" id="brand_standards_nav_title_field" name="brand_standards_nav_title_field" value="' . esc_attr( $value ) . '" size="25" />';
+    echo '<p class="description">Leave blank to use the page title in navigation.</p>';
 }
-add_filter( 'single_template', 'brand_standards_custom_template' );
+
+function brand_standards_save_custom_fields( $post_id ) {
+    if ( ! isset( $_POST['brand_standards_nav_title_nonce'] ) ) {
+        return;
+    }
+    if ( ! wp_verify_nonce( $_POST['brand_standards_nav_title_nonce'], 'brand_standards_nav_title' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    if ( isset( $_POST['brand_standards_nav_title_field'] ) ) {
+        update_post_meta( $post_id, '_nav_title', sanitize_text_field( $_POST['brand_standards_nav_title_field'] ) );
+    }
+}
+add_action( 'save_post', 'brand_standards_save_custom_fields' );
 
 function brand_standards_create_pages() {
     $pages = array(
-        'How to use' => 'This page provides instructions on how to use our brand standards.',
-        'Mission and vision' => 'This page outlines our company\'s mission and vision.',
+        'Brand Standards' => 'This page provides instructions on how to use our brand standards.',
+        'Mission and Vision' => 'This page outlines our company\'s mission and vision.',
         'Logo' => 'This page provides guidelines for using our company logo.',
         'Colors' => 'This page details our brand\'s color palette and usage guidelines.',
         'Typography' => 'This page outlines our brand\'s typography standards.',
@@ -89,11 +116,26 @@ function brand_standards_create_pages() {
                 'post_type'     => 'brand_standard',
             );
 
-            wp_insert_post( $page_data );
+            $post_id = wp_insert_post( $page_data );
+
+            if ( $page_title === 'Brand Standards' ) {
+                update_post_meta( $post_id, '_nav_title', 'How to Use' );
+            }
         }
     }
 }
 
+function brand_standards_custom_template( $template ) {
+    if ( is_singular( 'brand_standard' ) ) {
+        $new_template = plugin_dir_path( __FILE__ ) . 'templates/single-brand-standard.php';
+        if ( file_exists( $new_template ) ) {
+            return $new_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'single_template', 'brand_standards_custom_template' );
+require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
 function brand_standards_activate() {
     brand_standards_register_post_type();
     brand_standards_create_pages();
