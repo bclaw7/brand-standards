@@ -55,10 +55,8 @@
 .cover-block {
     position: relative;
     height: 300px;
-    /* Adjust as needed */
     overflow: hidden;
     border-bottom: 20px solid var(--wp--preset--color--primary);
-    /* Replace with your brand color */
 }
 
 .featured-image {
