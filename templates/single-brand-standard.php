@@ -18,43 +18,45 @@ require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.p
 <?php wp_body_open(); ?>
 
 <div class="brand-standard-container">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
+        <button id="close-sidebar" class="close-sidebar">&times;</button>
         <div class="sidebar-sticky">
-        <div class="sidebar-logo-container">
-            <?php
-            $custom_logo_id = get_theme_mod('custom_logo');
-            $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-            $site_title = get_bloginfo('name');
-            if (has_custom_logo()) {
-                echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="sidebar-logo">';
-            } else {
-                echo '<h1 class="sidebar-title">' . $site_title . '</h1>';
-            }
-            ?>
-        </div>
-        <nav class="sidebar-nav">
-            <?php
-            $args = array(
-                'post_type' => 'brand_standard',
-                'posts_per_page' => -1,
-                'orderby' => 'menu_order',
-                'order' => 'ASC'
-            );
-            $brand_standards = new WP_Query($args);
-            if ($brand_standards->have_posts()) :
-                while ($brand_standards->have_posts()) : $brand_standards->the_post();
-                    $nav_title = get_post_meta(get_the_ID(), '_nav_title', true);
-                    $display_title = !empty($nav_title) ? $nav_title : get_the_title();
-                    echo '<a href="' . get_permalink() . '">' . esc_html($display_title) . '</a>';
-                endwhile;
-                wp_reset_postdata();
-            endif;
-            ?>
-        </nav>
+            <div class="sidebar-logo-container">
+                <?php
+                $custom_logo_id = get_theme_mod('custom_logo');
+                $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                $site_title = get_bloginfo('name');
+                if (has_custom_logo()) {
+                    echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="sidebar-logo">';
+                } else {
+                    echo '<h1 class="sidebar-title">' . $site_title . '</h1>';
+                }
+                ?>
+            </div>
+            <nav class="sidebar-nav">
+                <?php
+                $args = array(
+                    'post_type' => 'brand_standard',
+                    'posts_per_page' => -1,
+                    'orderby' => 'menu_order',
+                    'order' => 'ASC'
+                );
+                $brand_standards = new WP_Query($args);
+                if ($brand_standards->have_posts()) :
+                    while ($brand_standards->have_posts()) : $brand_standards->the_post();
+                        $nav_title = get_post_meta(get_the_ID(), '_nav_title', true);
+                        $display_title = !empty($nav_title) ? $nav_title : get_the_title();
+                        echo '<a href="' . get_permalink() . '">' . esc_html($display_title) . '</a>';
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+                ?>
+            </nav>
         </div>
     </div>
     
     <div class="content-area">
+        <button id="open-sidebar" class="open-sidebar">&#9776;</button>
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
             <div class="cover-block">
                 <?php if (has_post_thumbnail()) : ?>
@@ -86,5 +88,6 @@ require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.p
 </footer>
 
 <?php wp_footer(); ?>
+<script src="<?php echo plugin_dir_url(__FILE__) . '../js/brand-standards.js'; ?>"></script>
 </body>
 </html>
