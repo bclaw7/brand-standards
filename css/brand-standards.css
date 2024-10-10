@@ -29,7 +29,7 @@
 .sidebar-nav a {
     margin-bottom: 10px;
     text-decoration: none;
-    color: #333;
+    color: var(--wp--preset--color--contrasts);
 }
 
 .content-area {
@@ -50,22 +50,6 @@
 
 .brand-content .is-layout-flex {
     gap: var(--wp--preset--spacing--40);
-}
-
-.site-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-content a {
-    color: #fff;
 }
 
 .cover-block {
@@ -119,4 +103,20 @@
 .custom-navigation a {
     text-decoration: none;
     color: var(--wp--preset--color--primary);
+}
+
+.site-footer {
+    background-color: var(--wp--preset--color--contrast);
+    color: var(--wp--preset--color--base);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content a {
+    color: var(--wp--preset--color--base);
 }
