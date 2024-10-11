@@ -1,14 +1,17 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
-.wp-block-brand-standards-brand-guide-section .brand-standards-columns {
+.wp-block-brand-standards-brand-guide-section .brand-standards-columns,
+.wp-block-brand-standards-brand-guide-section .wp-block-columns {
   display: flex;
   gap: 2em;
 }
-.wp-block-brand-standards-brand-guide-section .brand-standards-columns .wp-block-column > :first-child {
+.wp-block-brand-standards-brand-guide-section .brand-standards-columns .wp-block-column > :first-child,
+.wp-block-brand-standards-brand-guide-section .wp-block-columns .wp-block-column > :first-child {
   margin-block-start: 0;
 }
-.wp-block-brand-standards-brand-guide-section .brand-standards-columns .wp-block-column > * {
+.wp-block-brand-standards-brand-guide-section .brand-standards-columns .wp-block-column > *,
+.wp-block-brand-standards-brand-guide-section .wp-block-columns .wp-block-column > * {
   margin-block-start: var(--wp--preset--spacing--30);
   margin-block-end: 0;
 }
