@@ -101,13 +101,20 @@ function brand_standards_create_pages() {
         $existing_page = get_page_by_title( $page_title, OBJECT, 'brand_standard' );
 
         if ( ! $existing_page ) {
-            $page_content = '<!-- wp:paragraph -->
-			<p>' . $page_description . '</p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph -->
-			<p>Please edit this page to add your specific brand guidelines.</p>
-			<!-- /wp:paragraph -->';
+            $page_content = '<!-- wp:brand-standards/brand-guide-section {"leftColumnWidth":33.33,"heading":"' . esc_attr($page_title) . '"} -->
+            <div class="wp-block-brand-standards-brand-guide-section">
+                <div class="wp-block-columns">
+                    <div class="wp-block-column" style="flex-basis:33.33%">
+                        <h2>' . esc_html($page_title) . '</h2>
+                    </div>
+                    <div class="wp-block-column" style="flex-basis:66.67%">
+                        <!-- wp:paragraph -->
+                        <p>' . esc_html($page_description) . '</p>
+                        <!-- /wp:paragraph -->
+                    </div>
+                </div>
+            </div>
+            <!-- /wp:brand-standards/brand-guide-section -->';
 
             $page_data = array(
                 'post_title'    => $page_title,

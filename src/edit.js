@@ -1,51 +1,45 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
+import { useBlockProps, RichText, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
+import { PanelBody, RangeControl } from '@wordpress/components';
 import './editor.scss';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
 export default function Edit({ attributes, setAttributes }) {
-	const { sectionTitle, content } = attributes;
+	const { leftColumnWidth, heading } = attributes;
+	const blockProps = useBlockProps();
 
 	return (
-		<div {...useBlockProps()}>
-			<RichText
-				tagName="h2"
-				value={sectionTitle}
-				onChange={(newSectionTitle) => setAttributes({ sectionTitle: newSectionTitle })}
-				placeholder={__('Section Title', 'brand-standards')}
-			/>
-			<RichText
-				tagName="div"
-				value={content}
-				onChange={(newContent) => setAttributes({ content: newContent })}
-				placeholder={__('Add your brand guide content here', 'brand-standards')}
-			/>
-		</div>
+		<>
+			<InspectorControls>
+				<PanelBody title={__('Column Settings', 'brand-standards')}>
+					<RangeControl
+						label={__('Left Column Width (%)', 'brand-standards')}
+						value={leftColumnWidth}
+						onChange={(newWidth) => setAttributes({ leftColumnWidth: newWidth })}
+						min={10}
+						max={90}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div {...blockProps}>
+				<div className="wp-block-columns brand-standards-columns">
+					<div className="wp-block-column" style={{ flexBasis: `${leftColumnWidth}%` }}>
+						<RichText
+							tagName="h2"
+							value={heading}
+							onChange={(newHeading) => setAttributes({ heading: newHeading })}
+							placeholder={__('Section Heading', 'brand-standards')}
+						/>
+					</div>
+					<div className="wp-block-column" style={{ flexBasis: `${100 - leftColumnWidth}%` }}>
+						<InnerBlocks
+							allowedBlocks={['core/paragraph', 'core/list']}
+							template={[
+								['core/paragraph', { placeholder: __('Add your content here.', 'brand-standards') }],
+							]}
+						/>
+					</div>
+				</div>
+			</div>
+		</>
 	);
 }

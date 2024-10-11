@@ -6,19 +6,19 @@
   "title": "Brand Guide Section",
   "category": "design",
   "icon": "book-alt",
-  "description": "A section for brand guidelines",
-  "example": {},
+  "description": "A section for brand guidelines with columns",
   "supports": {
     "html": false
   },
   "attributes": {
-    "sectionTitle": {
-      "type": "string",
-      "default": ""
+    "leftColumnWidth": {
+      "type": "number",
+      "default": 33.33
     },
-    "content": {
+    "heading": {
       "type": "string",
-      "default": ""
+      "source": "html",
+      "selector": "h2"
     }
   },
   "textdomain": "brand-standards",
