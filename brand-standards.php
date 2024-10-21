@@ -17,13 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
- */
+require_once plugin_dir_path(__FILE__) . 'includes/google-drive-integration.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+
 function create_block_brand_standards_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
@@ -31,6 +27,7 @@ add_action( 'init', 'create_block_brand_standards_block_init' );
 
 function brand_standards_enqueue_styles() {
     wp_enqueue_style( 'brand-standards-style', plugin_dir_url( __FILE__ ) . 'css/brand-standards.css' );
+    wp_enqueue_style( 'campaign-assets-styles', plugin_dir_url( __FILE__ ) . 'css/campaign-assets.css' );
 }
 add_action( 'wp_enqueue_scripts', 'brand_standards_enqueue_styles' );
 
@@ -143,7 +140,76 @@ function brand_standards_custom_template( $template ) {
 }
 add_filter( 'single_template', 'brand_standards_custom_template' );
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+
+function brand_standards_register_campaign_post_type() {
+    $args = array(
+        'public'    => true,
+        'label'     => 'Campaigns',
+        'menu_icon' => 'dashicons-megaphone',
+        'supports'  => array('title', 'editor', 'custom-fields', 'revisions', 'thumbnail'),
+        'show_in_rest' => true,
+        'has_archive' => true,
+        'rewrite'     => array('slug' => 'campaigns'),
+    );
+    register_post_type('campaign', $args);
+}
+add_action('init', 'brand_standards_register_campaign_post_type');
+
+function brand_standards_add_campaign_custom_fields() {
+    add_meta_box(
+        'campaign_details',
+        'Campaign Details',
+        'brand_standards_campaign_details_callback',
+        'campaign',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'brand_standards_add_campaign_custom_fields');
+
+function brand_standards_campaign_details_callback($post) {
+    wp_nonce_field('campaign_details', 'campaign_details_nonce');
+    
+    $start_date = get_post_meta($post->ID, '_campaign_start_date', true);
+    $end_date = get_post_meta($post->ID, '_campaign_end_date', true);
+    $drive_folder_id = get_post_meta($post->ID, '_campaign_drive_folder_id', true);
+    
+    echo '<p><label for="campaign_start_date">Start Date:</label> ';
+    echo '<input type="date" id="campaign_start_date" name="campaign_start_date" value="' . esc_attr($start_date) . '"></p>';
+    
+    echo '<p><label for="campaign_end_date">End Date:</label> ';
+    echo '<input type="date" id="campaign_end_date" name="campaign_end_date" value="' . esc_attr($end_date) . '"></p>';
+    
+    echo '<p><label for="campaign_drive_folder_id">Google Drive Folder ID:</label> ';
+    echo '<input type="text" id="campaign_drive_folder_id" name="campaign_drive_folder_id" value="' . esc_attr($drive_folder_id) . '"></p>';
+}
+
+function brand_standards_save_campaign_details($post_id) {
+    if (!isset($_POST['campaign_details_nonce']) || !wp_verify_nonce($_POST['campaign_details_nonce'], 'campaign_details')) {
+        return;
+    }
+    
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    
+    if (isset($_POST['campaign_start_date'])) {
+        update_post_meta($post_id, '_campaign_start_date', sanitize_text_field($_POST['campaign_start_date']));
+    }
+    
+    if (isset($_POST['campaign_end_date'])) {
+        update_post_meta($post_id, '_campaign_end_date', sanitize_text_field($_POST['campaign_end_date']));
+    }
+    
+    if (isset($_POST['campaign_drive_folder_id'])) {
+        update_post_meta($post_id, '_campaign_drive_folder_id', sanitize_text_field($_POST['campaign_drive_folder_id']));
+    }
+}
+add_action('save_post', 'brand_standards_save_campaign_details');
 
 function brand_standards_activate() {
     brand_standards_register_post_type();

@@ -28,3 +28,9 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# secure directory
+secure/
+
+# DS_Store files
+.DS_Store
