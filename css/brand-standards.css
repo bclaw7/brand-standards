@@ -37,7 +37,7 @@
  .brand_standard-template-default .sidebar-nav a {
      margin-bottom: 10px;
      text-decoration: none;
-     color: var(--wp--preset--color--contrasts);
+     color: black;
  }
 
  .brand_standard-template-default .content-area {
@@ -48,6 +48,19 @@
      background-color: #f0f0f0;
      padding: 40px;
      margin-bottom: 20px;
+     position: relative;
+     height: 300px;
+     overflow: hidden;
+     border-bottom: 20px solid black;
+ }
+
+ .brand_standard-template-default .cover-block h1 {
+     position: absolute;
+     bottom: 20px;
+     left: 10%;
+     color: white !important;
+     margin: 0;
+     z-index: 2;
  }
 
  .brand_standard-template-default .brand-content {
@@ -57,14 +70,7 @@
  }
 
  .brand_standard-template-default .brand-content .is-layout-flex {
-     gap: var(--wp--preset--spacing--40);
- }
-
- .brand_standard-template-default .cover-block {
-     position: relative;
-     height: 300px;
-     overflow: hidden;
-     border-bottom: 20px solid var(--wp--preset--color--primary);
+     gap: 2em;
  }
 
  .brand_standard-template-default .featured-image {
@@ -86,16 +92,6 @@
      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
  }
 
- .brand_standard-template-default .cover-block h1 {
-     position: absolute;
-     bottom: 20px;
-     left: 10%;
-     color: white;
-     font-size: 2.5em;
-     margin: 0;
-     z-index: 2;
- }
-
  .brand_standard-template-default .custom-navigation {
      width: 80%;
      max-width: 1200px;
@@ -108,12 +104,12 @@
 
  .brand_standard-template-default .custom-navigation a {
      text-decoration: none;
-     color: var(--wp--preset--color--primary);
+     color: black;
  }
 
  .brand_standard-template-default .site-footer {
-     background-color: var(--wp--preset--color--contrast);
-     color: var(--wp--preset--color--base);
+     background-color: black;
+     color: white;
      padding: 20px 0;
      text-align: center;
      margin-top: 0;
@@ -125,7 +121,7 @@
  }
 
  .brand_standard-template-default .footer-content a {
-     color: var(--wp--preset--color--base);
+     color: white;
  }
 
  .brand_standard-template-default .open-sidebar,
@@ -162,11 +158,15 @@
          top: 10px;
          left: 10px;
          z-index: 999;
-         background-color: var(--wp--preset--color--primary);
          color: white;
+         text-shadow: 1px 1px 9px rgba(0, 0, 0, 0.7);
          border: none;
          font-size: 24px;
          cursor: pointer;
+     }
+
+     .brand_standard-template-default.admin-bar .open-sidebar {
+         top: 55px;
      }
 
      .brand_standard-template-default .close-sidebar {
@@ -178,6 +178,10 @@
          border: none;
          font-size: 24px;
          cursor: pointer;
+     }
+
+     .brand_standard-template-default.admin-bar .close-sidebar {
+         top: 55px;
      }
 
      .brand_standard-template-default .brand-content {
