@@ -9,16 +9,34 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       brand-standards
- *
- * @package CreateBlock
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
 }
 
-require_once plugin_dir_path(__FILE__) . 'includes/google-drive-integration.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/block-patterns.php';
+// Define plugin constants
+define('BRAND_STANDARDS_PATH', plugin_dir_path(__FILE__));
+define('BRAND_STANDARDS_URL', plugin_dir_url(__FILE__));
+
+// Debug information - this will write to the error log when the plugin loads
+error_log('Plugin Path: ' . BRAND_STANDARDS_PATH);
+error_log('Vendor Path: ' . BRAND_STANDARDS_PATH . 'vendor/autoload.php');
+error_log('Vendor exists: ' . (file_exists(BRAND_STANDARDS_PATH . 'vendor/autoload.php') ? 'yes' : 'no'));
+
+// Require dependencies
+if (file_exists(BRAND_STANDARDS_PATH . 'vendor/autoload.php')) {
+    require_once BRAND_STANDARDS_PATH . 'vendor/autoload.php';
+    require_once BRAND_STANDARDS_PATH . 'includes/google-drive-integration.php';
+} else {
+    // Add admin notice if vendor directory is missing
+    add_action('admin_notices', function() {
+        echo '<div class="error"><p>Brand Standards plugin: Vendor directory is missing. Please reinstall the plugin.</p></div>';
+    });
+}
+
+require_once BRAND_STANDARDS_PATH . 'includes/block-patterns.php';
+require_once BRAND_STANDARDS_PATH . 'includes/debug.php';
 
 function create_block_brand_standards_block_init() {
 	register_block_type( __DIR__ . '/build' );
