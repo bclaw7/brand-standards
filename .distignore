@@ -1,6 +1,7 @@
 .git
 .github
 node_modules
+src
 .gitignore
 .distignore
 .editorconfig
@@ -20,3 +21,4 @@ CONTRIBUTING.md
 README.md
 .DS_Store
 Thumbs.db
+copy.js

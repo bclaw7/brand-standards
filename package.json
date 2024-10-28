@@ -2,22 +2,20 @@
 	"name": "brand-standards",
 	"version": "0.1.0",
 	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"author": "Byron Lawlis",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build",
+		"build": "wp-scripts build && node copy.js",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"clean": "rm -rf ./build",
-		"copy-plugin-files": "mkdir -p ./build && cp -r ./vendor ./build/ && cp -r ./includes ./build/ && cp -r ./secure ./build/ && cp -r ./templates ./build/ && cp -r ./assets ./build/ && cp -r ./css ./build/ && cp ./*.php ./build/",
-		"prepare-zip": "mkdir -p ./zip-build && cp -r ./build/* ./zip-build/ && mv ./zip-build/vendor ../temp-vendor && rm -rf ./zip-build/vendor && mv ../temp-vendor ./zip-build/vendor",
-		"plugin-zip": "npm run clean && npm run build && npm run copy-plugin-files && npm run prepare-zip && cd zip-build && zip -r ../brand-standards.zip . && cd .. && rm -rf zip-build",
+		"zip": "node zip-plugin.js",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^30.1.0"
+		"@wordpress/scripts": "^30.1.0",
+		"archiver": "^5.3.1"
 	}
 }
