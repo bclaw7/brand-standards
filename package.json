@@ -11,7 +11,10 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
+		"clean": "rm -rf ./build",
+		"copy-plugin-files": "mkdir -p ./build && cp -r ./vendor ./build/ && cp -r ./includes ./build/ && cp -r ./secure ./build/ && cp -r ./templates ./build/ && cp -r ./assets ./build/ && cp -r ./css ./build/ && cp ./*.php ./build/",
+		"prepare-zip": "mkdir -p ./zip-build && cp -r ./build/* ./zip-build/ && mv ./zip-build/vendor ../temp-vendor && rm -rf ./zip-build/vendor && mv ../temp-vendor ./zip-build/vendor",
+		"plugin-zip": "npm run clean && npm run build && npm run copy-plugin-files && npm run prepare-zip && cd zip-build && zip -r ../brand-standards.zip . && cd .. && rm -rf zip-build",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
