@@ -32,6 +32,7 @@
  .brand_standard-template-default .sidebar-nav {
      display: flex;
      flex-direction: column;
+     margin-top: 1em;
  }
 
  .brand_standard-template-default .sidebar-nav a {
@@ -51,14 +52,14 @@
      position: relative;
      height: 300px;
      overflow: hidden;
-     border-bottom: 20px solid black;
+     border-bottom: 20px solid var(--bs-primary);
  }
 
  .brand_standard-template-default .cover-block h1 {
      position: absolute;
      bottom: 20px;
      left: 10%;
-     color: white !important;
+     color: var(--bs-base);
      margin: 0;
      z-index: 2;
  }
@@ -97,18 +98,16 @@
      max-width: 1200px;
      display: flex;
      justify-content: space-between;
-     margin-top: 50px;
-     margin-left: auto;
-     margin-right: auto;
+     margin: 2em auto;
  }
 
  .brand_standard-template-default .custom-navigation a {
      text-decoration: none;
-     color: black;
+     color: var(--bs-contrast);
  }
 
  .brand_standard-template-default .site-footer {
-     background-color: black;
+     background-color: var(--bs-contrast);
      color: white;
      padding: 20px 0;
      text-align: center;
@@ -121,7 +120,7 @@
  }
 
  .brand_standard-template-default .footer-content a {
-     color: white;
+     color: var(--bs-base);
  }
 
  .brand_standard-template-default .open-sidebar,

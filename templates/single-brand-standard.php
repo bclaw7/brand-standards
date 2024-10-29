@@ -21,18 +21,9 @@ require_once plugin_dir_path(__FILE__) . '../includes/brand-standard-functions.p
     <div class="sidebar" id="sidebar">
         <button id="close-sidebar" class="close-sidebar">&times;</button>
         <div class="sidebar-sticky">
-            <div class="sidebar-logo-container">
-                <?php
-                $custom_logo_id = get_theme_mod('custom_logo');
-                $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-                $site_title = get_bloginfo('name');
-                if (has_custom_logo()) {
-                    echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="sidebar-logo">';
-                } else {
-                    echo '<h1 class="sidebar-title">' . $site_title . '</h1>';
-                }
-                ?>
-            </div>
+        <div class="sidebar-logo-container">
+            <?php do_action('brand_standards_logo'); ?>
+        </div>
             <nav class="sidebar-nav">
                 <?php
                 $args = array(
