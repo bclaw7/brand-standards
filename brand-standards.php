@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 // Core includes
 require_once plugin_dir_path(__FILE__) . 'includes/block-patterns.php';
 require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
+require_once plugin_dir_path(__FILE__) . 'includes/class-brand-standards-pattern-manager.php';
 
 function create_block_brand_standards_block_init() {
     register_block_type(__DIR__ . '/build');

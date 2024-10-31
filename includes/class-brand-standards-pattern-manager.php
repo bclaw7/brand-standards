@@ -121,10 +121,10 @@ class Brand_Standards_Pattern_Manager {
         return [
             'mission-vision' => [
                 'name' => 'mission-vision',
-                'title' => __('Mission and Vision', 'brand-standards'),
-                'description' => __('Mission and vision statement layout with supporting content.', 'brand-standards'),
+                'title' => __('Mission, Vision, Values & Goals', 'brand-standards'),
+                'description' => __('A comprehensive organizational overview template with mission, vision, core values, and strategic goals.', 'brand-standards'),
                 'content' => $this->get_mission_vision_pattern(),
-                'keywords' => ['mission', 'vision', 'values']
+                'keywords' => ['mission', 'vision', 'values', 'goals', 'purpose', 'strategy']
             ],
             'logo-guidelines' => [
                 'name' => 'logo-guidelines',
@@ -145,29 +145,134 @@ class Brand_Standards_Pattern_Manager {
     }
 
     private function get_mission_vision_pattern() {
-        return '<!-- wp:brand-standards/brand-guide-section {"leftColumnWidth":33.33,"heading":"Mission and Vision"} -->
-        <div class="wp-block-brand-standards-brand-guide-section">
-            <div class="wp-block-columns">
-                <div class="wp-block-column" style="flex-basis:33.33%">
-                    <h2>Mission and Vision</h2>
-                </div>
-                <div class="wp-block-column" style="flex-basis:66.67%">
-                    <!-- wp:heading {"level":3} -->
-                    <h3>Our Mission</h3>
-                    <!-- /wp:heading -->
-                    <!-- wp:paragraph -->
-                    <p>Enter your mission statement here.</p>
-                    <!-- /wp:paragraph -->
-                    <!-- wp:heading {"level":3} -->
-                    <h3>Our Vision</h3>
-                    <!-- /wp:heading -->
-                    <!-- wp:paragraph -->
-                    <p>Enter your vision statement here.</p>
-                    <!-- /wp:paragraph -->
-                </div>
-            </div>
-        </div>
-        <!-- /wp:brand-standards/brand-guide-section -->';
+        return '<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->' .
+               '<div class="wp-block-group alignwide">' .
+                    '<!-- wp:columns -->' .
+                    '<div class="wp-block-columns">' .
+                        '<!-- wp:column {"width":"33.33%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:33.33%">' .
+                            '<!-- wp:heading {"className":"is-style-default"} -->' .
+                            '<h2 class="wp-block-heading is-style-default">Mission</h2>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph {"style":{"typography":{"fontSize":"14px"}}} -->' .
+                            '<p style="font-size:14px">Our purpose and what we do</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                        
+                        '<!-- wp:column {"width":"66.66%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:66.66%">' .
+                            '<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"400"}}} -->' .
+                            '<p style="font-style:normal;font-weight:400">[Organization Name] works to [primary goal] by [key method or approach]. We are committed to [core commitment] through [key activities or services].</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                    '</div>' .
+                    '<!-- /wp:columns -->' .
+    
+                    '<!-- wp:columns -->' .
+                    '<div class="wp-block-columns">' .
+                        '<!-- wp:column {"width":"33.33%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:33.33%">' .
+                            '<!-- wp:heading {"className":"is-style-default"} -->' .
+                            '<h2 class="wp-block-heading is-style-default">Vision</h2>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph {"style":{"typography":{"fontSize":"14px"}}} -->' .
+                            '<p style="font-size:14px">Our aspirations for the future</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                        
+                        '<!-- wp:column {"width":"66.66%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:66.66%">' .
+                            '<!-- wp:paragraph -->' .
+                            '<p>We envision a future where [desired outcome or change]. Our vision encompasses [broader impact] and [long-term goal].</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                    '</div>' .
+                    '<!-- /wp:columns -->' .
+    
+                    '<!-- wp:columns -->' .
+                    '<div class="wp-block-columns">' .
+                        '<!-- wp:column {"width":"33.33%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:33.33%">' .
+                            '<!-- wp:heading {"className":"is-style-default"} -->' .
+                            '<h2 class="wp-block-heading is-style-default">Values</h2>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph {"style":{"typography":{"fontSize":"14px"}}} -->' .
+                            '<p style="font-size:14px">The principles that guide us</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                        
+                        '<!-- wp:column {"width":"66.66%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:66.66%">' .
+                            '<!-- wp:heading {"level":3,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"}}} -->' .
+                            '<h3 style="font-style:normal;font-weight:600">Excellence</h3>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph -->' .
+                            '<p>We strive for the highest standards in everything we do.</p>' .
+                            '<!-- /wp:paragraph -->' .
+                            
+                            '<!-- wp:heading {"level":3,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"}}} -->' .
+                            '<h3 style="font-style:normal;font-weight:600">Integrity</h3>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph -->' .
+                            '<p>We conduct ourselves with honesty, transparency, and ethical behavior.</p>' .
+                            '<!-- /wp:paragraph -->' .
+                            
+                            '<!-- wp:heading {"level":3,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"}}} -->' .
+                            '<h3 style="font-style:normal;font-weight:600">Innovation</h3>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph -->' .
+                            '<p>We embrace creativity and forward-thinking solutions.</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                    '</div>' .
+                    '<!-- /wp:columns -->' .
+    
+                    '<!-- wp:columns -->' .
+                    '<div class="wp-block-columns">' .
+                        '<!-- wp:column {"width":"33.33%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:33.33%">' .
+                            '<!-- wp:heading {"className":"is-style-default"} -->' .
+                            '<h2 class="wp-block-heading is-style-default">Goals</h2>' .
+                            '<!-- /wp:heading -->' .
+                            '<!-- wp:paragraph {"style":{"typography":{"fontSize":"14px"}}} -->' .
+                            '<p style="font-size:14px">Our strategic objectives</p>' .
+                            '<!-- /wp:paragraph -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                        
+                        '<!-- wp:column {"width":"66.66%"} -->' .
+                        '<div class="wp-block-column" style="flex-basis:66.66%">' .
+                            '<!-- wp:list -->' .
+                            '<ul>' .
+                                '<!-- wp:list-item -->' .
+                                '<li>Achieve [specific metric or outcome] by [target date]</li>' .
+                                '<!-- /wp:list-item -->' .
+                                
+                                '<!-- wp:list-item -->' .
+                                '<li>Expand our [service/product] to reach [target audience or market]</li>' .
+                                '<!-- /wp:list-item -->' .
+                                
+                                '<!-- wp:list-item -->' .
+                                '<li>Develop and implement [new initiative or program]</li>' .
+                                '<!-- /wp:list-item -->' .
+                                
+                                '<!-- wp:list-item -->' .
+                                '<li>Strengthen partnerships with [key stakeholders or organizations]</li>' .
+                                '<!-- /wp:list-item -->' .
+                            '</ul>' .
+                            '<!-- /wp:list -->' .
+                        '</div>' .
+                        '<!-- /wp:column -->' .
+                    '</div>' .
+                    '<!-- /wp:columns -->' .
+               '</div>' .
+               '<!-- /wp:group -->';
     }
 
     private function get_logo_guidelines_pattern() {
