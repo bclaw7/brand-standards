@@ -9,16 +9,25 @@ const deprecated = [
             },
             heading: {
                 type: 'string',
+                source: 'html',
+                selector: 'h2',
                 default: ''
-            },
+            }
+        },
+        supports: {
+            html: true
         },
         save: ({ attributes }) => {
             const { leftColumnWidth, heading } = attributes;
+            const blockProps = useBlockProps.save({
+                className: 'wp-block-brand-standards-brand-guide-section'
+            });
+            
             return (
-                <div {...useBlockProps.save()}>
+                <div {...blockProps}>
                     <div className="wp-block-columns">
                         <div className="wp-block-column" style={{ flexBasis: `${leftColumnWidth}%` }}>
-                            <h2>{heading}</h2>
+                            {heading && <h2>{heading}</h2>}
                         </div>
                         <div className="wp-block-column" style={{ flexBasis: `${100 - leftColumnWidth}%` }}>
                             <InnerBlocks.Content />
@@ -26,47 +35,8 @@ const deprecated = [
                     </div>
                 </div>
             );
-        },
-    },
-    {
-        attributes: {
-            leftColumnWidth: {
-                type: 'number',
-                default: 33.33
-            },
-            heading: {
-                type: 'string',
-                default: ''
-            },
-        },
-        save: ({ attributes }) => {
-            const { leftColumnWidth, heading } = attributes;
-            return (
-                <div {...useBlockProps.save()}>
-                    <div className="wp-block-columns">
-                        <div className="wp-block-column" style={{ flexBasis: `${leftColumnWidth}%` }}>
-                            <h2>{heading}</h2>
-                        </div>
-                        <div className="wp-block-column" style={{ flexBasis: `${100 - leftColumnWidth}%` }}>
-                        </div>
-                    </div>
-                </div>
-            );
-        },
-    },
-    {
-        attributes: {
-            leftColumnWidth: {
-                type: 'number',
-                default: 33.33
-            },
-            heading: {
-                type: 'string',
-                default: ''
-            },
-        },
-        save: () => null,
-    },
+        }
+    }
 ];
 
 export default deprecated;

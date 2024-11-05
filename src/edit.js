@@ -3,7 +3,8 @@ import { useBlockProps, RichText, InspectorControls, InnerBlocks } from '@wordpr
 import { PanelBody, RangeControl } from '@wordpress/components';
 import './editor.scss';
 
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit(props) {
+	const { attributes, setAttributes } = props;
 	const { leftColumnWidth, heading } = attributes;
 	const blockProps = useBlockProps();
 
@@ -21,7 +22,7 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelBody>
 			</InspectorControls>
 			<div {...blockProps}>
-				<div className="wp-block-columns brand-standards-columns">
+				<div className="wp-block-columns">
 					<div className="wp-block-column" style={{ flexBasis: `${leftColumnWidth}%` }}>
 						<RichText
 							tagName="h2"
@@ -34,7 +35,7 @@ export default function Edit({ attributes, setAttributes }) {
 						<InnerBlocks
 							allowedBlocks={['core/paragraph', 'core/list']}
 							template={[
-								['core/paragraph', { placeholder: __('Add your content here.', 'brand-standards') }],
+								['core/paragraph', { placeholder: __('Add your content here.', 'brand-standards') }]
 							]}
 						/>
 					</div>
