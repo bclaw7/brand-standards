@@ -41,9 +41,9 @@
      color: black;
  }
 
- .brand_standard-template-default .content-area {
-     width: 100%;
- }
+.brand_standard-template-default .brand-standard-container .content-area {
+    width: 100%;
+}
 
  .brand_standard-template-default .cover-block {
      background-color: #f0f0f0;
@@ -63,7 +63,9 @@
      margin: 0;
      z-index: 2;
  }
-
+ .brand_standard-template-default .brand-content .has-global-padding {
+    padding: 0;
+}
  .brand_standard-template-default .brand-content {
      width: 80%;
      max-width: 1200px;
