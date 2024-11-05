@@ -14,7 +14,8 @@ node_modules/
 *.zip
 
 # Build
-/build
+dist/
+build/
 
 # Environment
 .env
