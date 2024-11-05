@@ -20,6 +20,11 @@ require_once plugin_dir_path(__FILE__) . 'includes/block-patterns.php';
 require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-brand-standards-pattern-manager.php';
 
+function init_brand_standards_patterns() {
+    new Brand_Standards_Pattern_Manager();
+}
+add_action('plugins_loaded', 'init_brand_standards_patterns');
+
 function create_block_brand_standards_block_init() {
     register_block_type(__DIR__ . '/build');
 }
@@ -113,47 +118,70 @@ function brand_standards_save_custom_fields($post_id) {
 }
 add_action('save_post', 'brand_standards_save_custom_fields');
 
+// Create brand standard pages on activation
 function brand_standards_create_pages() {
     $pages = array(
-        'Brand Standards' => 'This page provides instructions on how to use our brand standards.',
-        'Mission and Vision' => 'This page outlines our company\'s mission and vision.',
-        'Logo' => 'This page provides guidelines for using our company logo.',
-        'Colors' => 'This page details our brand\'s color palette and usage guidelines.',
-        'Typography' => 'This page outlines our brand\'s typography standards.',
-        'Elements' => 'This page showcases various brand elements and their usage.',
-        'Photography' => 'This page provides guidelines for photography in our brand communications.'
+        'Brand Standards' => [
+            'title' => 'Brand Standards',
+            'description' => 'This page provides instructions on how to use our brand standards.',
+            'nav_title' => 'How to Use'
+        ],
+        'Mission and Vision' => [
+            'title' => 'Mission and Vision',
+            'description' => 'This page outlines our company\'s mission and vision.',
+            'nav_title' => ''
+        ],
+        'Logo' => [
+            'title' => 'Logo',
+            'description' => 'This page provides guidelines for using our company logo.',
+            'nav_title' => ''
+        ],
+        'Colors' => [
+            'title' => 'Colors',
+            'description' => 'This page details our brand\'s color palette and usage guidelines.',
+            'nav_title' => ''
+        ],
+        'Typography' => [
+            'title' => 'Typography',
+            'description' => 'This page outlines our brand\'s typography standards.',
+            'nav_title' => ''
+        ],
+        'Elements' => [
+            'title' => 'Elements',
+            'description' => 'This page showcases various brand elements and their usage.',
+            'nav_title' => ''
+        ],
+        'Photography' => [
+            'title' => 'Photography',
+            'description' => 'This page provides guidelines for photography in our brand communications.',
+            'nav_title' => ''
+        ]
     );
 
-    foreach ($pages as $page_title => $page_description) {
-        $existing_page = get_page_by_title($page_title, OBJECT, 'brand_standard');
+    // Initialize pattern manager
+    $pattern_manager = new Brand_Standards_Pattern_Manager();
+
+    foreach ($pages as $key => $page_data) {
+        $existing_page = get_page_by_title($page_data['title'], OBJECT, 'brand_standard');
 
         if (!$existing_page) {
-            $page_content = '<!-- wp:brand-standards/brand-guide-section {"leftColumnWidth":33.33,"heading":"' . esc_attr($page_title) . '"} -->
-            <div class="wp-block-brand-standards-brand-guide-section">
-                <div class="wp-block-columns">
-                    <div class="wp-block-column" style="flex-basis:33.33%">
-                        <h2>' . esc_html($page_title) . '</h2>
-                    </div>
-                    <div class="wp-block-column" style="flex-basis:66.67%">
-                        <!-- wp:paragraph -->
-                        <p>' . esc_html($page_description) . '</p>
-                        <!-- /wp:paragraph -->
-                    </div>
-                </div>
-            </div>
-            <!-- /wp:brand-standards/brand-guide-section -->';
-
-            $page_data = array(
-                'post_title'    => $page_title,
-                'post_content'  => $page_content,
+            $page_args = array(
+                'post_title'    => $page_data['title'],
                 'post_status'   => 'publish',
                 'post_type'     => 'brand_standard',
+                'post_content'  => '' // Content will be set by pattern manager
             );
 
-            $post_id = wp_insert_post($page_data);
+            $post_id = wp_insert_post($page_args);
 
-            if ($page_title === 'Brand Standards') {
-                update_post_meta($post_id, '_nav_title', 'How to Use');
+            if (!is_wp_error($post_id)) {
+                // Set navigation title if specified
+                if (!empty($page_data['nav_title'])) {
+                    update_post_meta($post_id, '_nav_title', $page_data['nav_title']);
+                }
+
+                // Force pattern application
+                $pattern_manager->maybe_apply_pattern($post_id, get_post($post_id), false);
             }
         }
     }
