@@ -15,7 +15,6 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-// Core includes
 require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-brand-standards-pattern-manager.php';
 
@@ -24,17 +23,11 @@ function init_brand_standards_patterns() {
 }
 add_action('init', 'init_brand_standards_patterns', 20);
 
-function create_block_brand_standards_block_init() {
-    register_block_type(__DIR__ . '/build');
-}
-add_action('init', 'create_block_brand_standards_block_init');
-
 function brand_standards_enqueue_styles() {
     wp_enqueue_style('brand-standards-style', plugin_dir_url(__FILE__) . 'css/brand-standards.css');
 }
 add_action('wp_enqueue_scripts', 'brand_standards_enqueue_styles');
 
-// Register the post type and add template support
 function brand_standards_register_post_type() {
     $args = array(
         'public'    => true,

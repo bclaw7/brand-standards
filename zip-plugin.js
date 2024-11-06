@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const archiver = require('archiver');
 
 // Create zip file
@@ -28,25 +27,28 @@ archive.on('error', (err) => {
 
 archive.pipe(output);
 
-// Function to add directory with ignore patterns
-function addDirectoryToArchive(directory, archivePath) {
-    archive.glob('**/*', {
-        cwd: directory,
-        dot: false,
-        ignore: ignorePatterns,
-    }, { prefix: `brand-standards/${archivePath}` });
-}
+// Create the plugin directory structure
+const pluginPrefix = 'brand-standards';
 
 // Add main plugin files
-archive.file('brand-standards.php', { name: 'brand-standards/brand-standards.php' });
-archive.file('block.json', { name: 'brand-standards/block.json' });
-archive.file('readme.txt', { name: 'brand-standards/readme.txt' });
+archive.file('brand-standards.php', { name: `${pluginPrefix}/brand-standards.php` });
+archive.file('readme.txt', { name: `${pluginPrefix}/readme.txt` });
+archive.file('LICENSE', { name: `${pluginPrefix}/LICENSE` });
 
-// Add directories with ignore patterns
-addDirectoryToArchive('build', 'build');
-addDirectoryToArchive('includes', 'includes');
-addDirectoryToArchive('templates', 'templates');
-addDirectoryToArchive('css', 'css');
-addDirectoryToArchive('js', 'js');
+// Add directories
+// CSS
+archive.directory('css/', `${pluginPrefix}/css`);
+
+// JavaScript
+archive.directory('js/', `${pluginPrefix}/js`);
+
+// Includes
+archive.directory('includes/', `${pluginPrefix}/includes`);
+
+// Templates
+archive.directory('templates/', `${pluginPrefix}/templates`);
+
+// Patterns
+archive.directory('patterns/', `${pluginPrefix}/patterns`);
 
 archive.finalize();

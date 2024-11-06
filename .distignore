@@ -1,12 +1,9 @@
 .git
 .github
 node_modules
-src
 .gitignore
 .distignore
 .editorconfig
-.eslintrc.json
-.eslintignore
 package.json
 package-lock.json
 composer.json
@@ -14,13 +11,9 @@ composer.lock
 phpunit.xml.dist
 docker-compose.yml
 Dockerfile
-webpack.config.js
 .travis.yml
 phpcs.xml.dist
 CONTRIBUTING.md
 README.md
 .DS_Store
 Thumbs.db
-copy.js
-logo-tabs/
-src/logo-tabs/
