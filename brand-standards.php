@@ -16,14 +16,13 @@ if (!defined('ABSPATH')) {
 }
 
 // Core includes
-require_once plugin_dir_path(__FILE__) . 'includes/block-patterns.php';
 require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-brand-standards-pattern-manager.php';
 
 function init_brand_standards_patterns() {
     new Brand_Standards_Pattern_Manager();
 }
-add_action('plugins_loaded', 'init_brand_standards_patterns');
+add_action('init', 'init_brand_standards_patterns', 20);
 
 function create_block_brand_standards_block_init() {
     register_block_type(__DIR__ . '/build');

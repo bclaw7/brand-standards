@@ -15,17 +15,8 @@ const filesToCopy = [
     {
         src: path.join('src', 'block.json'),
         dest: 'block.json'
-    },
-    {
-        src: path.join('src', 'logo-tabs', 'block.json'),
-        dest: path.join('build', 'logo-tabs', 'block.json')
     }
 ];
-
-// Create logo-tabs directory in build if it doesn't exist
-if (!fs.existsSync(path.join('build', 'logo-tabs'))) {
-    fs.mkdirSync(path.join('build', 'logo-tabs'), { recursive: true });
-}
 
 // Copy files
 filesToCopy.forEach(file => {

@@ -3,7 +3,7 @@
  * Pattern Management System for Brand Standards Plugin
  */
 
-class Brand_Standards_Pattern_Manager {
+ class Brand_Standards_Pattern_Manager {
     private $pattern_page_mapping = [
         'Mission and Vision' => 'mission-vision',
         'Logo' => 'logo-guidelines',
@@ -15,16 +15,11 @@ class Brand_Standards_Pattern_Manager {
     ];
 
     public function __construct() {
-        $this->init_hooks();
-    }
-
-    private function init_hooks() {
-        add_action('init', [$this, 'register_block_patterns']);
-        add_action('save_post_brand_standard', [$this, 'maybe_apply_pattern'], 10, 3);
-        add_filter('default_content', [$this, 'set_default_content'], 10, 2);
+        $this->register_block_patterns();
     }
 
     public function register_block_patterns() {
+        // Register pattern category if it doesn't exist
         if (!WP_Block_Pattern_Categories_Registry::get_instance()->is_registered('brand-standards')) {
             register_block_pattern_category(
                 'brand-standards',
@@ -32,6 +27,7 @@ class Brand_Standards_Pattern_Manager {
             );
         }
 
+        // Register each pattern
         foreach ($this->pattern_page_mapping as $title => $filename) {
             $pattern_content = $this->get_pattern_content($filename);
             if ($pattern_content) {
