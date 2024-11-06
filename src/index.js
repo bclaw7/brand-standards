@@ -16,5 +16,3 @@ registerBlockType(metadata.name, {
 	save,
 	deprecated,
 });
-
-// import './logo-tabs';
